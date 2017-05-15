@@ -1,0 +1,16 @@
+{
+  "name": "psadmin",
+  "version": "1.0.0",
+  "description": "Pluralsight tutorial for React and Flux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Akeem Taiwo",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-open": "^2.0.0"
+  }
+}
