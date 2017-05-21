@@ -18,8 +18,9 @@ var config = {
         js: './src/**/*.js',
         images: './src/images/*',
         css: [
-            'node_modules/bootstrap/dist/css/bootstrap.min.css',
-            'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
+            'node_modules/bootstrap/dist/css/bootstrap.min.css', 
+            'node_modules/bootstrap/dist/css/bootstrap-theme.min.css', 
+            'node_modules/toastr/build/toastr.css'
         ],
         mainJs: './src/main.js'
     }
@@ -27,23 +28,20 @@ var config = {
 
 //Start a local development server
 gulp.task('connect', function () {
-    connect.server({
-        root: ['dist'],
-        port: config.port,
-        base: config.devBaseUrl,
-        livereload: true
-    });
+    connect.server({root: ['dist'], port: config.port, base: config.devBaseUrl, livereload: true});
 });
 
 gulp.task('open', ['connect'], function () {
-    gulp.src('dist/index/html')
+    gulp
+        .src('dist/index/html')
         .pipe(open({
             url: config.devBaseUrl + ':' + config.port + '/'
         }));
 });
 
 gulp.task('html', function () {
-    gulp.src(config.paths.html)
+    gulp
+        .src(config.paths.html)
         .pipe(gulp.dest(config.paths.dist))
         .pipe(connect.reload());
 });
@@ -59,25 +57,27 @@ gulp.task('js', function () {
 });
 
 gulp.task('css', function () {
-    gulp.src(config.paths.css)
+    gulp
+        .src(config.paths.css)
         .pipe(concat('bundle.css'))
         .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
 gulp.task('lint', function () {
-    return gulp.src(config.paths.js)
-        .pipe(lint({
-            configFile: 'eslint.config.json'
-        }))
+    return gulp
+        .src(config.paths.js)
+        .pipe(lint({configFile: 'eslint.config.json'}))
         .pipe(lint.format());
 })
 
 gulp.task('images', function () {
-    gulp.src(config.paths.images)
+    gulp
+        .src(config.paths.images)
         .pipe(gulp.dest(config.paths.dist + '/images'))
         .pipe(connect.reload());
 
-    gulp.src('./src/favicon.ico')
+    gulp
+        .src('./src/favicon.ico')
         .pipe(gulp.dest(config.paths.dist));
 })
 
@@ -86,4 +86,12 @@ gulp.task('watch', function () {
     gulp.watch(config.paths.js, ['js', 'lint']);
 });
 
-gulp.task('default', ['html', 'js', 'css','images', 'lint', 'open', 'watch']);
+gulp.task('default', [
+    'html',
+    'js',
+    'css',
+    'images',
+    'lint',
+    'open',
+    'watch'
+]);
